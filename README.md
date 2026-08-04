@@ -1,59 +1,160 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="320" alt="Laravel Logo">
 </p>
 
-## About Laravel
+<h1 align="center">FlowERP</h1>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+<p align="center">
+  Um ERP modular open-source construído com Laravel, pensado para qualidade de produção — não um projeto de estudo.
+</p>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<p align="center">
+  <img src="https://img.shields.io/badge/PHP-8.4-777BB4?logo=php&logoColor=white" alt="PHP 8.4">
+  <img src="https://img.shields.io/badge/Laravel-12-FF2D20?logo=laravel&logoColor=white" alt="Laravel 12">
+  <img src="https://img.shields.io/badge/PostgreSQL-16-4169E1?logo=postgresql&logoColor=white" alt="PostgreSQL 16">
+  <img src="https://img.shields.io/badge/Redis-7-DC382D?logo=redis&logoColor=white" alt="Redis 7">
+  <img src="https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker&logoColor=white" alt="Docker Compose">
+  <img src="https://img.shields.io/badge/license-MIT-blue" alt="License MIT">
+</p>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Sobre o projeto
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+**FlowERP** é um sistema de gestão empresarial (ERP) desenvolvido do zero com Laravel, aplicando arquitetura modular inspirada em Domain-Driven Design. O objetivo é entregar uma base sólida para os principais processos de uma empresa — clientes, fornecedores, produtos, estoque, compras, vendas e financeiro — com o rigor de engenharia de um software comercial: tipagem estrita, separação clara de responsabilidades, auditoria de dados e testes automatizados.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+> **Status:** projeto em desenvolvimento ativo. A infraestrutura (Docker, banco de dados, cache, fila, e-mail) já está funcional e o esqueleto dos módulos de negócio foi criado; as regras de negócio de cada módulo estão sendo implementadas incrementalmente.
 
-## Laravel Sponsors
+## Arquitetura
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+O projeto segue uma separação entre **infraestrutura/cross-cutting concerns** e **módulos de domínio**, evitando o modelo tradicional de Controllers "gordos" do Laravel:
 
-### Premium Partners
+```
+app/
+├── Actions/         # Casos de uso (regra de negócio isolada e reutilizável)
+├── DTOs/            # Objetos de transferência de dados entre camadas
+├── Enums/           # Enums tipados (status, eventos, etc.)
+├── Events/          # Eventos de domínio
+├── Exceptions/       # Exceções customizadas
+├── Http/            # Controllers "finos" — apenas orquestram Actions/Services
+├── Jobs/            # Processamento assíncrono (fila)
+├── Listeners/       # Reação a eventos de domínio
+├── Models/          # Modelos compartilhados (ex.: User)
+├── Observers/       # Observers de Eloquent
+├── Policies/        # Autorização
+├── Repositories/    # Abstração de acesso a dados
+├── Rules/           # Regras de validação customizadas
+├── Services/        # Serviços de domínio transversais
+└── Traits/          # Comportamentos reutilizáveis (ex.: Auditable)
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Modules/
+├── Administration/  # Usuários, papéis, permissões, log de auditoria
+├── Customers/       # Clientes PF/PJ (CPF/CNPJ)
+├── Suppliers/       # Fornecedores
+├── Products/        # Produtos, variantes, SKU/NCM/EAN
+├── Inventory/       # Estoque e movimentações (histórico imutável)
+├── Purchases/       # Compras
+├── Sales/           # Vendas (orçamento → pedido → nota, com efeitos em estoque/financeiro)
+├── Financial/        # Plano de contas, centros de custo, contas a pagar/receber, fluxo de caixa
+└── Reports/         # Relatórios e exportação (CSV/Excel)
+```
 
-## Contributing
+Cada módulo é autocontido — com seus próprios `Models`, `Services`, `Repositories`, `Policies`, `DTOs`, `Actions`, `Requests`, `Resources`, `Events`, `Migrations`, `Routes` e `Tests` — e é registrado via um `ServiceProvider` próprio (`Modules/{Nome}/Providers/{Nome}ServiceProvider.php`), carregando suas migrations e rotas de forma independente.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+**Princípios seguidos:**
+- Controllers não contêm regra de negócio — apenas delegam para Actions/Services.
+- Movimentações de estoque nunca são editadas diretamente; toda alteração gera um novo registro de histórico.
+- Efeitos colaterais entre módulos (ex.: venda impactando estoque e financeiro) são propagados via eventos, não por acoplamento direto.
+- Alterações relevantes em modelos auditáveis são registradas automaticamente (trait `Auditable` + `AuditLogService`).
+- Tudo roda via Docker — não há dependência de PHP/Composer instalados localmente.
 
-## Code of Conduct
+## Tecnologias
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+| Camada | Tecnologia |
+|---|---|
+| Linguagem | PHP 8.4 |
+| Framework | Laravel 12 |
+| Banco de dados | PostgreSQL 16 |
+| Cache, sessão e fila | Redis 7 |
+| E-mail (ambiente local) | Mailpit |
+| Front-end (build) | Vite, Tailwind CSS v4 |
+| Testes | PHPUnit, Mockery, Faker |
+| Qualidade de código | Laravel Pint (PSR-12) |
+| Infraestrutura | Docker & Docker Compose |
+| Servidor web | Nginx |
 
-## Security Vulnerabilities
+## Arquitetura de containers
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+O ambiente é totalmente orquestrado via `docker-compose.yml`, com os seguintes serviços:
 
-## License
+- **app** — PHP-FPM, executa a aplicação Laravel.
+- **nginx** — servidor web, expõe a aplicação em `http://localhost:8080`.
+- **postgres** — banco de dados principal, porta `5432`.
+- **redis** — cache, sessão e driver de fila, porta `6379`.
+- **mailpit** — captura de e-mails em desenvolvimento, UI em `http://localhost:8025`.
+- **queue** — worker dedicado (`queue:work`) para processamento assíncrono.
+- **scheduler** — executa o agendador do Laravel (`schedule:work`) para tarefas recorrentes.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Como executar o projeto
+
+### Pré-requisitos
+- [Docker](https://www.docker.com/) e Docker Compose
+
+### Passos
+
+```bash
+# 1. Clonar o repositório
+git clone <url-do-repositorio> flow-erp
+cd flow-erp
+
+# 2. Copiar o arquivo de ambiente
+cp .env.example .env
+
+# 3. Subir os containers
+docker compose up -d --build
+
+# 4. Instalar dependências PHP (dentro do container)
+docker compose exec app composer install
+
+# 5. Gerar a chave da aplicação
+docker compose exec app php artisan key:generate
+
+# 6. Executar as migrations
+docker compose exec app php artisan migrate
+
+# 7. Instalar dependências de front-end e compilar assets
+docker compose exec app npm install
+docker compose exec app npm run build
+```
+
+A aplicação estará disponível em **http://localhost:8080** e o Mailpit em **http://localhost:8025**.
+
+### Executando os testes
+
+```bash
+docker compose exec app php artisan test
+```
+
+### Padrão de código
+
+```bash
+docker compose exec app ./vendor/bin/pint
+```
+
+## Roadmap
+
+- [x] Infraestrutura Docker (app, nginx, postgres, redis, mailpit, queue, scheduler)
+- [x] Estrutura modular (`Modules/`) e padrão de `ServiceProvider` por módulo
+- [x] Sistema de auditoria (`AuditLogService` + trait `Auditable`)
+- [ ] Módulo de Administração — usuários, autenticação, 2FA, papéis e permissões
+- [ ] Módulo de Clientes e Fornecedores
+- [ ] Módulo de Produtos e Estoque
+- [ ] Módulo de Compras e Vendas
+- [ ] Módulo Financeiro
+- [ ] Relatórios e exportação (CSV/Excel)
+- [ ] API REST versionada (`api/v1`) com Sanctum e documentação Swagger
+- [ ] CI com GitHub Actions (Composer, Pint, testes)
+
+## Licença
+
+Este projeto é open-source, licenciado sob a [licença MIT](https://opensource.org/licenses/MIT).
