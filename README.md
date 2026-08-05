@@ -153,7 +153,6 @@ docker compose exec app ./vendor/bin/pint
 - [ ] Módulo Financeiro
 - [ ] Relatórios e exportação (CSV/Excel)
 - [ ] API REST versionada (`api/v1`) com Sanctum e documentação Swagger
-- [ ] CI com GitHub Actions (Composer, Pint, testes)
 
 ## Licença
 

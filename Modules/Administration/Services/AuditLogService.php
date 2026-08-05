@@ -11,9 +11,7 @@ use Modules\Administration\Models\AuditLog;
 
 class AuditLogService
 {
-    public function __construct(private readonly Request $request)
-    {
-    }
+    public function __construct(private readonly Request $request) {}
 
     public function record(Model $model, AuditEventType $event, array $old, array $new): void
     {
