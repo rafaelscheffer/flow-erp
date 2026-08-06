@@ -24,6 +24,7 @@ use Modules\Administration\Filament\Pages\EditProfile;
 use Modules\Administration\Filament\Resources\AuditLogs\AuditLogResource;
 use Modules\Administration\Filament\Resources\Roles\RoleResource;
 use Modules\Administration\Filament\Resources\Users\UserResource;
+use Modules\Customers\Filament\Resources\Customers\CustomerResource;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -49,6 +50,7 @@ class AdminPanelProvider extends PanelProvider
                 UserResource::class,
                 RoleResource::class,
                 AuditLogResource::class,
+                CustomerResource::class,
             ])
             ->pages([
                 Dashboard::class,
