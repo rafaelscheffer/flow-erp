@@ -25,6 +25,10 @@ use Modules\Administration\Filament\Resources\AuditLogs\AuditLogResource;
 use Modules\Administration\Filament\Resources\Roles\RoleResource;
 use Modules\Administration\Filament\Resources\Users\UserResource;
 use Modules\Customers\Filament\Resources\Customers\CustomerResource;
+use Modules\Products\Filament\Resources\Brands\BrandResource;
+use Modules\Products\Filament\Resources\Categories\ProductCategoryResource;
+use Modules\Products\Filament\Resources\Collections\ProductCollectionResource;
+use Modules\Products\Filament\Resources\Products\ProductResource;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -51,6 +55,10 @@ class AdminPanelProvider extends PanelProvider
                 RoleResource::class,
                 AuditLogResource::class,
                 CustomerResource::class,
+                ProductCategoryResource::class,
+                BrandResource::class,
+                ProductCollectionResource::class,
+                ProductResource::class,
             ])
             ->pages([
                 Dashboard::class,
