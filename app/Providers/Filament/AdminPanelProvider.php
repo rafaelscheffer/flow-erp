@@ -33,6 +33,8 @@ use Modules\Products\Filament\Resources\Brands\BrandResource;
 use Modules\Products\Filament\Resources\Categories\ProductCategoryResource;
 use Modules\Products\Filament\Resources\Collections\ProductCollectionResource;
 use Modules\Products\Filament\Resources\Products\ProductResource;
+use Modules\Purchases\Filament\Resources\PurchaseOrders\PurchaseOrderResource;
+use Modules\Purchases\Filament\Resources\Suppliers\SupplierResource;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -67,6 +69,8 @@ class AdminPanelProvider extends PanelProvider
                 StockMovementResource::class,
                 StockBalanceResource::class,
                 StockReservationResource::class,
+                SupplierResource::class,
+                PurchaseOrderResource::class,
             ])
             ->pages([
                 Dashboard::class,

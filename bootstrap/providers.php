@@ -6,6 +6,7 @@ use Modules\Administration\Providers\AdministrationServiceProvider;
 use Modules\Customers\Providers\CustomersServiceProvider;
 use Modules\Inventory\Providers\InventoryServiceProvider;
 use Modules\Products\Providers\ProductsServiceProvider;
+use Modules\Purchases\Providers\PurchasesServiceProvider;
 
 return [
     AppServiceProvider::class,
@@ -14,4 +15,5 @@ return [
     CustomersServiceProvider::class,
     ProductsServiceProvider::class,
     InventoryServiceProvider::class,
+    PurchasesServiceProvider::class,
 ];

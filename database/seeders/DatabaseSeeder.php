@@ -8,6 +8,7 @@ use Modules\Administration\Database\Seeders\AdministrationSeeder;
 use Modules\Customers\Database\Seeders\CustomersSeeder;
 use Modules\Inventory\Database\Seeders\InventorySeeder;
 use Modules\Products\Database\Seeders\ProductsSeeder;
+use Modules\Purchases\Database\Seeders\PurchasesSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,5 +23,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CustomersSeeder::class);
         $this->call(ProductsSeeder::class);
         $this->call(InventorySeeder::class);
+        $this->call(PurchasesSeeder::class);
     }
 }
