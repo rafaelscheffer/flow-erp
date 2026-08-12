@@ -23,6 +23,8 @@ class ProductVariantsRelationManager extends RelationManager
 
     protected static ?string $recordTitleAttribute = 'sku';
 
+    protected static ?string $title = 'Variantes';
+
     public function form(Schema $schema): Schema
     {
         return $schema

@@ -29,9 +29,9 @@ class ProductCollectionResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    protected static ?string $modelLabel = 'Collection';
+    protected static ?string $modelLabel = 'Coleção';
 
-    protected static ?string $pluralModelLabel = 'Collections';
+    protected static ?string $pluralModelLabel = 'Coleções';
 
     public static function form(Schema $schema): Schema
     {

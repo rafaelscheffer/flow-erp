@@ -26,6 +26,10 @@ class StockMovementResource extends Resource
 
     protected static ?string $navigationLabel = 'Movimentações';
 
+    protected static ?string $modelLabel = 'Movimentação de Estoque';
+
+    protected static ?string $pluralModelLabel = 'Movimentações de Estoque';
+
     public static function form(Schema $schema): Schema
     {
         return StockMovementForm::configure($schema);

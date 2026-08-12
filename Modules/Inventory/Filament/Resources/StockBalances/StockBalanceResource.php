@@ -23,6 +23,10 @@ class StockBalanceResource extends Resource
 
     protected static ?string $navigationLabel = 'Saldo de Estoque';
 
+    protected static ?string $modelLabel = 'Saldo de Estoque';
+
+    protected static ?string $pluralModelLabel = 'Saldos de Estoque';
+
     public static function table(Table $table): Table
     {
         return StockBalancesTable::configure($table);

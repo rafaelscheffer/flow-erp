@@ -29,6 +29,10 @@ class StockLocationResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
+    protected static ?string $modelLabel = 'Local de Estoque';
+
+    protected static ?string $pluralModelLabel = 'Locais de Estoque';
+
     public static function form(Schema $schema): Schema
     {
         return StockLocationForm::configure($schema);

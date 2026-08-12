@@ -29,9 +29,9 @@ class ProductCategoryResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    protected static ?string $modelLabel = 'Category';
+    protected static ?string $modelLabel = 'Categoria';
 
-    protected static ?string $pluralModelLabel = 'Categories';
+    protected static ?string $pluralModelLabel = 'Categorias';
 
     public static function form(Schema $schema): Schema
     {

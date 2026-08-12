@@ -42,7 +42,7 @@ class ViewAuditLog extends ViewRecord
                         TextEntry::make('ip_address')
                             ->label('IP'),
                         TextEntry::make('user_agent')
-                            ->label('User Agent')
+                            ->label('Agente do Usuário')
                             ->columnSpanFull(),
                     ]),
                 Section::make('Alterações')

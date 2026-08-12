@@ -27,6 +27,8 @@ class PurchaseOrderItemsRelationManager extends RelationManager
 {
     protected static string $relationship = 'items';
 
+    protected static ?string $title = 'Itens do Pedido';
+
     public function form(Schema $schema): Schema
     {
         return $schema

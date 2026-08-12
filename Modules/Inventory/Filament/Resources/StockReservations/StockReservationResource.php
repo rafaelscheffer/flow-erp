@@ -26,6 +26,10 @@ class StockReservationResource extends Resource
 
     protected static ?string $navigationLabel = 'Reservas de Estoque';
 
+    protected static ?string $modelLabel = 'Reserva de Estoque';
+
+    protected static ?string $pluralModelLabel = 'Reservas de Estoque';
+
     public static function form(Schema $schema): Schema
     {
         return StockReservationForm::configure($schema);
