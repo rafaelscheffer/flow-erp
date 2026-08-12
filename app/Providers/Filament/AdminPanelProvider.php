@@ -35,6 +35,7 @@ use Modules\Products\Filament\Resources\Collections\ProductCollectionResource;
 use Modules\Products\Filament\Resources\Products\ProductResource;
 use Modules\Purchases\Filament\Resources\PurchaseOrders\PurchaseOrderResource;
 use Modules\Purchases\Filament\Resources\Suppliers\SupplierResource;
+use Modules\Sales\Filament\Resources\Orders\OrderResource;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -71,6 +72,7 @@ class AdminPanelProvider extends PanelProvider
                 StockReservationResource::class,
                 SupplierResource::class,
                 PurchaseOrderResource::class,
+                OrderResource::class,
             ])
             ->pages([
                 Dashboard::class,
