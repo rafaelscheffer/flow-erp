@@ -9,6 +9,7 @@ use Illuminate\Validation\ValidationException;
 use Modules\Inventory\Enums\StockMovementType;
 use Modules\Inventory\Models\StockMovement;
 use Modules\Purchases\Enums\PurchaseOrderStatus;
+use Modules\Purchases\Events\PurchaseOrderReceived;
 use Modules\Purchases\Models\PurchaseOrder;
 
 /**
@@ -45,6 +46,8 @@ class ReceivePurchaseOrderAction
                 'status' => PurchaseOrderStatus::Received,
                 'received_at' => now(),
             ]);
+
+            PurchaseOrderReceived::dispatch($purchaseOrder);
 
             return $purchaseOrder;
         });

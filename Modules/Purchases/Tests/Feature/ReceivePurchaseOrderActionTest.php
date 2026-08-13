@@ -6,10 +6,12 @@ namespace Modules\Purchases\Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Validation\ValidationException;
 use Modules\Inventory\Models\StockBalance;
 use Modules\Purchases\Actions\ReceivePurchaseOrderAction;
 use Modules\Purchases\Enums\PurchaseOrderStatus;
+use Modules\Purchases\Events\PurchaseOrderReceived;
 use Modules\Purchases\Models\PurchaseOrder;
 use Modules\Purchases\Models\PurchaseOrderItem;
 use Tests\TestCase;
@@ -18,8 +20,10 @@ class ReceivePurchaseOrderActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_receiving_a_sent_order_creates_stock_movements_and_updates_the_balance(): void
+    public function test_receiving_a_sent_order_creates_stock_movements_updates_the_balance_and_dispatches_an_event(): void
     {
+        Event::fake([PurchaseOrderReceived::class]);
+
         $order = PurchaseOrder::factory()->sent()->create();
         $item = PurchaseOrderItem::factory()->create([
             'purchase_order_id' => $order->id,
@@ -46,6 +50,8 @@ class ReceivePurchaseOrderActionTest extends TestCase
             ->first();
 
         $this->assertSame(15, $balance->quantity);
+
+        Event::assertDispatched(PurchaseOrderReceived::class, fn (PurchaseOrderReceived $event): bool => $event->purchaseOrder->is($order));
     }
 
     public function test_a_draft_order_cannot_be_received(): void

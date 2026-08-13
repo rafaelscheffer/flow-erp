@@ -18,6 +18,11 @@ class FinancialSeeder extends Seeder
             'receivables.update',
             'receivables.delete',
             'receivables.mark-paid',
+            'payables.view',
+            'payables.create',
+            'payables.update',
+            'payables.delete',
+            'payables.mark-paid',
         ];
 
         foreach ($permissions as $permission) {
