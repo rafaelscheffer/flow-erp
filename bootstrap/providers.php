@@ -4,6 +4,7 @@ use App\Providers\AppServiceProvider;
 use App\Providers\Filament\AdminPanelProvider;
 use Modules\Administration\Providers\AdministrationServiceProvider;
 use Modules\Customers\Providers\CustomersServiceProvider;
+use Modules\Financial\Providers\FinancialServiceProvider;
 use Modules\Inventory\Providers\InventoryServiceProvider;
 use Modules\Products\Providers\ProductsServiceProvider;
 use Modules\Purchases\Providers\PurchasesServiceProvider;
@@ -18,4 +19,5 @@ return [
     InventoryServiceProvider::class,
     PurchasesServiceProvider::class,
     SalesServiceProvider::class,
+    FinancialServiceProvider::class,
 ];

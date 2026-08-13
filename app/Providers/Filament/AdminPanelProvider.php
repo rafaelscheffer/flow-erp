@@ -25,6 +25,7 @@ use Modules\Administration\Filament\Resources\AuditLogs\AuditLogResource;
 use Modules\Administration\Filament\Resources\Roles\RoleResource;
 use Modules\Administration\Filament\Resources\Users\UserResource;
 use Modules\Customers\Filament\Resources\Customers\CustomerResource;
+use Modules\Financial\Filament\Resources\Receivables\ReceivableResource;
 use Modules\Inventory\Filament\Resources\StockBalances\StockBalanceResource;
 use Modules\Inventory\Filament\Resources\StockLocations\StockLocationResource;
 use Modules\Inventory\Filament\Resources\StockMovements\StockMovementResource;
@@ -73,6 +74,7 @@ class AdminPanelProvider extends PanelProvider
                 SupplierResource::class,
                 PurchaseOrderResource::class,
                 OrderResource::class,
+                ReceivableResource::class,
             ])
             ->pages([
                 Dashboard::class,

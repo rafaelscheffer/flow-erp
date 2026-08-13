@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Modules\Administration\Database\Seeders\AdministrationSeeder;
 use Modules\Customers\Database\Seeders\CustomersSeeder;
+use Modules\Financial\Database\Seeders\FinancialSeeder;
 use Modules\Inventory\Database\Seeders\InventorySeeder;
 use Modules\Products\Database\Seeders\ProductsSeeder;
 use Modules\Purchases\Database\Seeders\PurchasesSeeder;
@@ -26,5 +27,6 @@ class DatabaseSeeder extends Seeder
         $this->call(InventorySeeder::class);
         $this->call(PurchasesSeeder::class);
         $this->call(SalesSeeder::class);
+        $this->call(FinancialSeeder::class);
     }
 }
