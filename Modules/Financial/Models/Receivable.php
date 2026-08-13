@@ -25,6 +25,8 @@ class Receivable extends Model
     protected $fillable = [
         'customer_id',
         'order_id',
+        'account_id',
+        'cost_center_id',
         'description',
         'amount',
         'due_date',
@@ -58,6 +60,16 @@ class Receivable extends Model
     public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class);
+    }
+
+    public function account(): BelongsTo
+    {
+        return $this->belongsTo(Account::class);
+    }
+
+    public function costCenter(): BelongsTo
+    {
+        return $this->belongsTo(CostCenter::class);
     }
 
     public function createdBy(): BelongsTo

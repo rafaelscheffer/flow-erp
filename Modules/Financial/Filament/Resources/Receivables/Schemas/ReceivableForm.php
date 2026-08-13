@@ -39,6 +39,16 @@ class ReceivableForm
                             ->label('Vencimento')
                             ->default(now())
                             ->required(),
+                        Select::make('account_id')
+                            ->label('Conta Contábil')
+                            ->relationship('account', 'name')
+                            ->searchable()
+                            ->preload(),
+                        Select::make('cost_center_id')
+                            ->label('Centro de Custo')
+                            ->relationship('costCenter', 'name')
+                            ->searchable()
+                            ->preload(),
                         TextInput::make('description')
                             ->label('Descrição')
                             ->columnSpanFull(),

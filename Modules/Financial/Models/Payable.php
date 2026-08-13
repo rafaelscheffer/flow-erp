@@ -25,6 +25,8 @@ class Payable extends Model
     protected $fillable = [
         'supplier_id',
         'purchase_order_id',
+        'account_id',
+        'cost_center_id',
         'description',
         'amount',
         'due_date',
@@ -58,6 +60,16 @@ class Payable extends Model
     public function purchaseOrder(): BelongsTo
     {
         return $this->belongsTo(PurchaseOrder::class);
+    }
+
+    public function account(): BelongsTo
+    {
+        return $this->belongsTo(Account::class);
+    }
+
+    public function costCenter(): BelongsTo
+    {
+        return $this->belongsTo(CostCenter::class);
     }
 
     public function createdBy(): BelongsTo

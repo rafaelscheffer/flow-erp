@@ -23,6 +23,15 @@ class FinancialSeeder extends Seeder
             'payables.update',
             'payables.delete',
             'payables.mark-paid',
+            'accounts.view',
+            'accounts.create',
+            'accounts.update',
+            'accounts.delete',
+            'cost-centers.view',
+            'cost-centers.create',
+            'cost-centers.update',
+            'cost-centers.delete',
+            'cash-flow.view',
         ];
 
         foreach ($permissions as $permission) {

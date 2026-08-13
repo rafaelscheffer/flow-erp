@@ -25,6 +25,9 @@ use Modules\Administration\Filament\Resources\AuditLogs\AuditLogResource;
 use Modules\Administration\Filament\Resources\Roles\RoleResource;
 use Modules\Administration\Filament\Resources\Users\UserResource;
 use Modules\Customers\Filament\Resources\Customers\CustomerResource;
+use Modules\Financial\Filament\Pages\CashFlow;
+use Modules\Financial\Filament\Resources\Accounts\AccountResource;
+use Modules\Financial\Filament\Resources\CostCenters\CostCenterResource;
 use Modules\Financial\Filament\Resources\Payables\PayableResource;
 use Modules\Financial\Filament\Resources\Receivables\ReceivableResource;
 use Modules\Inventory\Filament\Resources\StockBalances\StockBalanceResource;
@@ -77,9 +80,12 @@ class AdminPanelProvider extends PanelProvider
                 OrderResource::class,
                 ReceivableResource::class,
                 PayableResource::class,
+                AccountResource::class,
+                CostCenterResource::class,
             ])
             ->pages([
                 Dashboard::class,
+                CashFlow::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
