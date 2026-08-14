@@ -87,6 +87,7 @@ services:
     container_name: flowerp-queue
     restart: unless-stopped
     working_dir: /var/www/html
+    user: www-data
     command: ["php", "artisan", "queue:work", "--tries=3", "--sleep=1"]
     volumes:
       - .:/var/www/html
@@ -106,6 +107,7 @@ services:
     container_name: flowerp-scheduler
     restart: unless-stopped
     working_dir: /var/www/html
+    user: www-data
     command: ["php", "artisan", "schedule:work"]
     volumes:
       - .:/var/www/html

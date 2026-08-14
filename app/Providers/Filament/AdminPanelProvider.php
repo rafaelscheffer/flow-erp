@@ -40,6 +40,13 @@ use Modules\Products\Filament\Resources\Collections\ProductCollectionResource;
 use Modules\Products\Filament\Resources\Products\ProductResource;
 use Modules\Purchases\Filament\Resources\PurchaseOrders\PurchaseOrderResource;
 use Modules\Purchases\Filament\Resources\Suppliers\SupplierResource;
+use Modules\Reports\Filament\Pages\CustomersReport;
+use Modules\Reports\Filament\Pages\InventoryReport;
+use Modules\Reports\Filament\Pages\PayablesReport;
+use Modules\Reports\Filament\Pages\ProductsReport;
+use Modules\Reports\Filament\Pages\PurchasesReport;
+use Modules\Reports\Filament\Pages\ReceivablesReport;
+use Modules\Reports\Filament\Pages\SalesReport;
 use Modules\Sales\Filament\Resources\Orders\OrderResource;
 
 class AdminPanelProvider extends PanelProvider
@@ -60,6 +67,7 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Amber,
             ])
+            ->databaseNotifications()
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->resources([
@@ -86,6 +94,13 @@ class AdminPanelProvider extends PanelProvider
             ->pages([
                 Dashboard::class,
                 CashFlow::class,
+                SalesReport::class,
+                PurchasesReport::class,
+                CustomersReport::class,
+                ProductsReport::class,
+                InventoryReport::class,
+                ReceivablesReport::class,
+                PayablesReport::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([

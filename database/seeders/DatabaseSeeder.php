@@ -10,6 +10,7 @@ use Modules\Financial\Database\Seeders\FinancialSeeder;
 use Modules\Inventory\Database\Seeders\InventorySeeder;
 use Modules\Products\Database\Seeders\ProductsSeeder;
 use Modules\Purchases\Database\Seeders\PurchasesSeeder;
+use Modules\Reports\Database\Seeders\ReportsSeeder;
 use Modules\Sales\Database\Seeders\SalesSeeder;
 
 class DatabaseSeeder extends Seeder
@@ -28,5 +29,6 @@ class DatabaseSeeder extends Seeder
         $this->call(PurchasesSeeder::class);
         $this->call(SalesSeeder::class);
         $this->call(FinancialSeeder::class);
+        $this->call(ReportsSeeder::class);
     }
 }

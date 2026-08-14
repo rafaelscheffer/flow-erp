@@ -8,6 +8,7 @@ use Modules\Financial\Providers\FinancialServiceProvider;
 use Modules\Inventory\Providers\InventoryServiceProvider;
 use Modules\Products\Providers\ProductsServiceProvider;
 use Modules\Purchases\Providers\PurchasesServiceProvider;
+use Modules\Reports\Providers\ReportsServiceProvider;
 use Modules\Sales\Providers\SalesServiceProvider;
 
 return [
@@ -20,4 +21,5 @@ return [
     PurchasesServiceProvider::class,
     SalesServiceProvider::class,
     FinancialServiceProvider::class,
+    ReportsServiceProvider::class,
 ];
