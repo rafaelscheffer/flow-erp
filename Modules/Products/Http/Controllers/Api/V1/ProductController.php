@@ -34,7 +34,7 @@ class ProductController extends Controller
     #[OA\Post(path: '/api/v1/products', summary: 'Cria um produto', tags: ['Products'], security: [['sanctum' => []]], responses: [new OA\Response(response: 201, description: 'Produto criado'), new OA\Response(response: 422, description: 'Erro de validação')])]
     public function store(StoreProductRequest $request): JsonResponse
     {
-        $product = Product::query()->create($request->validated());
+        $product = Product::query()->create([...$request->validated(), 'is_active' => $request->boolean('is_active', true)]);
 
         return (new ProductResource($product))->response()->setStatusCode(201);
     }

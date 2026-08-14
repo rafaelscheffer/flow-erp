@@ -34,7 +34,7 @@ class BrandController extends Controller
     #[OA\Post(path: '/api/v1/brands', summary: 'Cria uma marca', tags: ['Products'], security: [['sanctum' => []]], responses: [new OA\Response(response: 201, description: 'Marca criada'), new OA\Response(response: 422, description: 'Erro de validação')])]
     public function store(StoreBrandRequest $request): JsonResponse
     {
-        $brand = Brand::query()->create($request->validated());
+        $brand = Brand::query()->create([...$request->validated(), 'is_active' => $request->boolean('is_active', true)]);
 
         return (new BrandResource($brand))->response()->setStatusCode(201);
     }

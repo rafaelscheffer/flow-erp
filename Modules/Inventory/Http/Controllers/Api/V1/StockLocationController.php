@@ -34,7 +34,7 @@ class StockLocationController extends Controller
     #[OA\Post(path: '/api/v1/locations', summary: 'Cria um local de estoque', tags: ['Inventory'], security: [['sanctum' => []]], responses: [new OA\Response(response: 201, description: 'Local criado'), new OA\Response(response: 422, description: 'Erro de validação')])]
     public function store(StoreStockLocationRequest $request): JsonResponse
     {
-        $location = StockLocation::query()->create($request->validated());
+        $location = StockLocation::query()->create([...$request->validated(), 'is_active' => $request->boolean('is_active', true)]);
 
         return (new StockLocationResource($location))->response()->setStatusCode(201);
     }

@@ -34,7 +34,7 @@ class ProductCollectionController extends Controller
     #[OA\Post(path: '/api/v1/collections', summary: 'Cria uma coleção', tags: ['Products'], security: [['sanctum' => []]], responses: [new OA\Response(response: 201, description: 'Coleção criada'), new OA\Response(response: 422, description: 'Erro de validação')])]
     public function store(StoreProductCollectionRequest $request): JsonResponse
     {
-        $collection = ProductCollection::query()->create($request->validated());
+        $collection = ProductCollection::query()->create([...$request->validated(), 'is_active' => $request->boolean('is_active', true)]);
 
         return (new ProductCollectionResource($collection))->response()->setStatusCode(201);
     }

@@ -59,7 +59,7 @@ class CustomerController extends Controller
     )]
     public function store(StoreCustomerRequest $request): JsonResponse
     {
-        $customer = Customer::query()->create($request->validated());
+        $customer = Customer::query()->create([...$request->validated(), 'is_active' => $request->boolean('is_active', true)]);
 
         return (new CustomerResource($customer))->response()->setStatusCode(201);
     }

@@ -34,7 +34,7 @@ class ProductCategoryController extends Controller
     #[OA\Post(path: '/api/v1/categories', summary: 'Cria uma categoria', tags: ['Products'], security: [['sanctum' => []]], responses: [new OA\Response(response: 201, description: 'Categoria criada'), new OA\Response(response: 422, description: 'Erro de validação')])]
     public function store(StoreProductCategoryRequest $request): JsonResponse
     {
-        $category = ProductCategory::query()->create($request->validated());
+        $category = ProductCategory::query()->create([...$request->validated(), 'is_active' => $request->boolean('is_active', true)]);
 
         return (new ProductCategoryResource($category))->response()->setStatusCode(201);
     }
