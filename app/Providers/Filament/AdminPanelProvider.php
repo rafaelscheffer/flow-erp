@@ -12,8 +12,6 @@ use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
-use Filament\Widgets\AccountWidget;
-use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -30,16 +28,19 @@ use Modules\Financial\Filament\Resources\Accounts\AccountResource;
 use Modules\Financial\Filament\Resources\CostCenters\CostCenterResource;
 use Modules\Financial\Filament\Resources\Payables\PayableResource;
 use Modules\Financial\Filament\Resources\Receivables\ReceivableResource;
+use Modules\Financial\Filament\Widgets\OpenBalancesOverview;
 use Modules\Inventory\Filament\Resources\StockBalances\StockBalanceResource;
 use Modules\Inventory\Filament\Resources\StockLocations\StockLocationResource;
 use Modules\Inventory\Filament\Resources\StockMovements\StockMovementResource;
 use Modules\Inventory\Filament\Resources\StockReservations\StockReservationResource;
+use Modules\Inventory\Filament\Widgets\LowStockOverview;
 use Modules\Products\Filament\Resources\Brands\BrandResource;
 use Modules\Products\Filament\Resources\Categories\ProductCategoryResource;
 use Modules\Products\Filament\Resources\Collections\ProductCollectionResource;
 use Modules\Products\Filament\Resources\Products\ProductResource;
 use Modules\Purchases\Filament\Resources\PurchaseOrders\PurchaseOrderResource;
 use Modules\Purchases\Filament\Resources\Suppliers\SupplierResource;
+use Modules\Purchases\Filament\Widgets\PurchasesOverview;
 use Modules\Reports\Filament\Pages\CustomersReport;
 use Modules\Reports\Filament\Pages\InventoryReport;
 use Modules\Reports\Filament\Pages\PayablesReport;
@@ -48,6 +49,7 @@ use Modules\Reports\Filament\Pages\PurchasesReport;
 use Modules\Reports\Filament\Pages\ReceivablesReport;
 use Modules\Reports\Filament\Pages\SalesReport;
 use Modules\Sales\Filament\Resources\Orders\OrderResource;
+use Modules\Sales\Filament\Widgets\SalesOverview;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -104,8 +106,10 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
-                AccountWidget::class,
-                FilamentInfoWidget::class,
+                SalesOverview::class,
+                PurchasesOverview::class,
+                OpenBalancesOverview::class,
+                LowStockOverview::class,
             ])
             ->middleware([
                 EncryptCookies::class,
