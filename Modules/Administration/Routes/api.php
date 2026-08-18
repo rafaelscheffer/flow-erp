@@ -7,7 +7,7 @@ use Modules\Administration\Http\Controllers\Api\V1\RoleController;
 use Modules\Administration\Http\Controllers\Api\V1\UserController;
 
 Route::prefix('api/v1')->middleware('api')->group(function (): void {
-    Route::post('auth/token', [AuthController::class, 'token']);
+    Route::post('auth/token', [AuthController::class, 'token'])->middleware('throttle:token-issuance');
 
     Route::middleware('auth:sanctum')->group(function (): void {
         Route::post('auth/logout', [AuthController::class, 'logout']);

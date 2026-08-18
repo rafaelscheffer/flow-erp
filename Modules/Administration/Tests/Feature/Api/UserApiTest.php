@@ -69,4 +69,51 @@ class UserApiTest extends TestCase
 
         $this->withToken($token)->deleteJson("/api/v1/users/{$other->id}")->assertNoContent();
     }
+
+    public function test_a_user_cannot_assign_a_role_that_grants_permissions_they_do_not_have(): void
+    {
+        Permission::query()->firstOrCreate(['name' => 'users.update']);
+        Permission::query()->firstOrCreate(['name' => 'payables.delete']);
+
+        $lowPrivilege = Role::query()->create(['name' => 'Suporte Basico']);
+        $lowPrivilege->givePermissionTo('users.update');
+
+        $actor = User::factory()->create();
+        $actor->assignRole($lowPrivilege);
+        $token = $actor->createToken('phpunit', ['users.update'])->plainTextToken;
+
+        $superAdmin = Role::query()->create(['name' => 'Super Admin']);
+        $superAdmin->givePermissionTo('payables.delete');
+
+        $response = $this->withToken($token)->putJson("/api/v1/users/{$actor->id}", [
+            'roles' => ['Super Admin'],
+        ]);
+
+        $response->assertUnprocessable();
+        $this->assertFalse($actor->fresh()->hasRole('Super Admin'));
+    }
+
+    public function test_a_user_can_assign_a_role_whose_permissions_they_already_have(): void
+    {
+        Permission::query()->firstOrCreate(['name' => 'users.update']);
+        Permission::query()->firstOrCreate(['name' => 'orders.view']);
+
+        $actorRole = Role::query()->create(['name' => 'Gestor de Usuarios']);
+        $actorRole->givePermissionTo(['users.update', 'orders.view']);
+
+        $actor = User::factory()->create();
+        $actor->assignRole($actorRole);
+        $token = $actor->createToken('phpunit', ['users.update'])->plainTextToken;
+
+        $vendedor = Role::query()->create(['name' => 'Vendedor']);
+        $vendedor->givePermissionTo('orders.view');
+        $other = User::factory()->create();
+
+        $response = $this->withToken($token)->putJson("/api/v1/users/{$other->id}", [
+            'roles' => ['Vendedor'],
+        ]);
+
+        $response->assertOk();
+        $this->assertTrue($other->fresh()->hasRole('Vendedor'));
+    }
 }

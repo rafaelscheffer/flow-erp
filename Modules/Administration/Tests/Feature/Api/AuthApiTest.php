@@ -96,4 +96,21 @@ class AuthApiTest extends TestCase
 
         $this->assertDatabaseCount('personal_access_tokens', 0);
     }
+
+    public function test_issuing_a_token_is_rate_limited_after_repeated_attempts(): void
+    {
+        $user = User::factory()->create(['password' => bcrypt('secret123')]);
+
+        $payload = [
+            'email' => $user->email,
+            'password' => 'wrong-password',
+            'device_name' => 'phpunit',
+        ];
+
+        for ($i = 0; $i < 5; $i++) {
+            $this->postJson('/api/v1/auth/token', $payload)->assertUnprocessable();
+        }
+
+        $this->postJson('/api/v1/auth/token', $payload)->assertStatus(429);
+    }
 }
